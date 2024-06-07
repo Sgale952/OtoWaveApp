@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:OtoWave/MainScreen.dart';
 import 'package:flutter/material.dart';
 
+import 'PasswordRecoveryScreen.dart';
+
+
 void main() {
   runApp(MyApp());
 }
@@ -134,7 +137,7 @@ class _LogInScreenState extends State<LogInScreen> {
               child: TextButton(
                 onPressed: () {
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MainScreen()),
+                    MaterialPageRoute(builder: (context) => PasswordRecoveryScreen()),
                   );
                 },
                 child: Text(
@@ -187,6 +190,8 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 }
+
+
 
 Widget _buildTextField({required String hintText, bool obscureText = false}) {
   return Container(
