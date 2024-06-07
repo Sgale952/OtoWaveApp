@@ -1,4 +1,6 @@
+import 'package:OtoWave/RegistrationScreen.dart';
 import 'package:flutter/material.dart';
+ // Импортируем экран регистрации
 
 void main() {
   runApp(MyApp());
@@ -29,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
       body: Container(
         decoration: _buildBackgroundGradient(), // Задний фон с градиентом
         child: Center(
-          child: _buildContent(), // Центральное содержимое экрана
+          child: _buildContent(context), // Центральное содержимое экрана
         ),
       ),
     );
@@ -47,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   // Метод для построения центрального содержимого экрана
-  Widget _buildContent() {
+  Widget _buildContent(BuildContext context) {
     return Container(
       width: 344, // Ширина контейнера
       height: 581, // Высота контейнера
@@ -79,7 +81,13 @@ class _MainScreenState extends State<MainScreen> {
                   text: 'Регистрация', // Текст на кнопке
                   color: Colors.blue, // Цвет кнопки
                   textColor: Colors.white, // Цвет текста на кнопке
-                  onPressed: () {}, // Обработчик нажатия на кнопку
+                  onPressed: () {
+                    // Переход на экран регистрации
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegistrationScreen()),
+                    );
+                  },
                 ),
                 SizedBox(height: 20), // Промежуток между кнопками
                 GestureDetector(
