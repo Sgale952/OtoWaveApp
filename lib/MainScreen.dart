@@ -141,25 +141,6 @@ class _MainScreenState extends State<MainScreen> {
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: TextButton(
-                onPressed: () {
-                  // Действие при нажатии на кнопку "продолжить без аккаунта"
-                },
-                child: Text(
-                  'продолжить без аккаунта',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontFamily: 'Inter-Medium',
-                  ),
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
