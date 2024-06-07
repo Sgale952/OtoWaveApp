@@ -1,3 +1,4 @@
+import 'package:OtoWave/LogInScreen.dart';
 import 'package:OtoWave/RegistrationScreen.dart';
 import 'package:flutter/material.dart';
  // Импортируем экран регистрации
@@ -36,6 +37,8 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
+
+
 
   // Метод для создания градиента заднего фона
   BoxDecoration _buildBackgroundGradient() {
@@ -82,7 +85,6 @@ class _MainScreenState extends State<MainScreen> {
                   color: Colors.blue, // Цвет кнопки
                   textColor: Colors.white, // Цвет текста на кнопке
                   onPressed: () {
-                    // Переход на экран регистрации
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => RegistrationScreen()),
@@ -91,9 +93,23 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 SizedBox(height: 20), // Промежуток между кнопками
                 GestureDetector(
-                  onTap: () {
+                  onTapDown: (_) {
                     setState(() {
-                      _isPressed = !_isPressed; // Изменение состояния при нажатии на кнопку
+                      _isPressed = true; // Устанавливаем состояние _isPressed в true при нажатии
+                    });
+                  },
+                  onTapUp: (_) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LogInScreen()),
+                    );
+                    setState(() {
+                      _isPressed = false; // Устанавливаем состояние _isPressed в false при отпускании
+                    });
+                  },
+                  onTapCancel: () {
+                    setState(() {
+                      _isPressed = false; // Сбрасываем состояние _isPressed при отмене нажатия
                     });
                   },
                   child: AnimatedContainer(
@@ -103,7 +119,7 @@ class _MainScreenState extends State<MainScreen> {
                     padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: _isPressed
-                          ? Colors.blue
+                          ? Colors.blue // Цвет кнопки при нажатии
                           : (_isHovered
                           ? Colors.blue.withOpacity(0.5)
                           : Colors.transparent),
@@ -114,9 +130,7 @@ class _MainScreenState extends State<MainScreen> {
                       child: Text(
                         'Вход',
                         style: TextStyle(
-                          color: _isPressed || _isHovered
-                              ? Colors.white
-                              : Colors.white,
+                          color: Colors.white,
                           fontSize: 17,
                           fontFamily: 'Inter-Medium',
                         ),
@@ -162,7 +176,7 @@ class _MainScreenState extends State<MainScreen> {
       onTap: onPressed,
       child: Container(
         width: 263,
-        height: 55,
+        height: 51,
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(10),

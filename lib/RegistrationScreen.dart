@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:OtoWave/MainScreen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -76,13 +75,27 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 _buildForm(),
-                SizedBox(height: 20),
+                SizedBox(height: 50),
                 GestureDetector(
-                  onTap: () {
+                  onTapDown: (_) {
                     setState(() {
-                      _isPressed = !_isPressed;
+                      _isPressed = true; // Устанавливаем состояние _isPressed в true при нажатии
+                    });
+                  },
+                  onTapUp: (_) {
+                    /*Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LogInScreen()),
+                    ); */
+                    setState(() {
+                      _isPressed = false; // Устанавливаем состояние _isPressed в false при отпускании
+                    });
+                  },
+                  onTapCancel: () {
+                    setState(() {
+                      _isPressed = false; // Сбрасываем состояние _isPressed при отмене нажатия
                     });
                   },
                   child: AnimatedContainer(
@@ -92,7 +105,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: _isPressed
-                          ? Colors.blue
+                          ? Colors.blue // Цвет кнопки при нажатии
                           : (_isHovered
                           ? Colors.blue.withOpacity(0.5)
                           : Colors.transparent),
@@ -103,9 +116,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: Text(
                         'Вход',
                         style: TextStyle(
-                          color: _isPressed || _isHovered
-                              ? Colors.white
-                              : Colors.white,
+                          color: Colors.white,
                           fontSize: 17,
                           fontFamily: 'Inter-Medium',
                         ),
@@ -144,6 +155,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   Widget _buildForm() {
     return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _buildTextField(hintText: 'Логин'),
         SizedBox(height: 15),
@@ -159,18 +171,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
 Widget _buildTextField({required String hintText, bool obscureText = false}) {
   return Container(
-    width: 263,
-    height: 55,
+    width: 253,
+    height: 40,
     decoration: BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(15),
     ),
     child: TextField(
       obscureText: obscureText,
       decoration: InputDecoration(
         hintText: hintText,
         border: InputBorder.none,
-        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       ),
     ),
   );
