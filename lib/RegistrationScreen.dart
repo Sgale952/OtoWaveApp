@@ -40,9 +40,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   BoxDecoration _buildBackgroundGradient() {
     return BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.purple, Colors.blue],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
+        colors: [Color.fromRGBO(106, 17, 203, 1.0), Colors.black],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
       ),
     );
   }
@@ -159,11 +159,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       children: [
         _buildTextField(hintText: 'Логин'),
         SizedBox(height: 15),
-        _buildTextField(hintText: 'Пароль', obscureText: true),
+        _buildTextField(hintText: 'Эл. почта', ),
         SizedBox(height: 15),
-        _buildTextField(hintText: 'Email'),
+        _buildTextField(hintText: 'Пароль'),
         SizedBox(height: 15),
-        _buildTextField(hintText: 'Телефон'),
+        _buildTextField(hintText: 'Повторить пароль'),
       ],
     );
   }

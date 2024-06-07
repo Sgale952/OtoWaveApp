@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'package:OtoWave/MainScreen.dart';
 import 'package:flutter/material.dart';
-
 import 'PasswordRecoveryScreen.dart';
 
 
@@ -43,9 +41,9 @@ class _LogInScreenState extends State<LogInScreen> {
   BoxDecoration _buildBackgroundGradient() {
     return BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.purple, Colors.blue],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
+        colors: [Color.fromRGBO(106, 17, 203, 1.0), Colors.black],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
       ),
     );
   }

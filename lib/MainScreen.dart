@@ -44,9 +44,9 @@ class _MainScreenState extends State<MainScreen> {
   BoxDecoration _buildBackgroundGradient() {
     return BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.purple, Colors.blue], // Цвета градиента
-        begin: Alignment.topLeft, // Начальное положение градиента
-        end: Alignment.bottomRight, // Конечное положение градиента
+        colors: [Color.fromRGBO(106, 17, 203, 1.0), Colors.black],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
       ),
     );
   }
