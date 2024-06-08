@@ -1,5 +1,6 @@
 import 'package:OtoWave/MainScreen.dart';
 import 'package:flutter/material.dart';
+import 'PasswordСreationScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -88,10 +89,10 @@ bool _isPressed = false;
                     });
                   },
                   onTapUp: (_) {
-                    /*Navigator.push(
+                    Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => LogInScreen()),
-                    ); */
+                      MaterialPageRoute(builder: (context) => PasswordCreationScreen()),
+                    );
                     setState(() {
                       _isPressed = false; // Устанавливаем состояние _isPressed в false при отпускании
                     });
@@ -117,7 +118,7 @@ bool _isPressed = false;
                     ),
                     child: Center(
                       child: Text(
-                        'Вход',
+                        'Отправить запрос',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 17,
