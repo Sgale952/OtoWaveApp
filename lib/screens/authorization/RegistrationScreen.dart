@@ -1,28 +1,13 @@
-import 'package:OtoWave/MainScreen.dart';
 import 'package:flutter/material.dart';
-import 'PasswordRecoveryScreen.dart';
+import '/screens/templates/BackgroundGradient.dart';
+import 'AuthorizationScreen.dart';
 
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
+class RegistrationScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(),
-      home: LogInScreen(),
-    );
-  }
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class LogInScreen extends StatefulWidget {
-  @override
-  _LogInScreenState createState() => _LogInScreenState();
-}
-
-class _LogInScreenState extends State<LogInScreen> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
   bool _isHovered = false;
   bool _isPressed = false;
 
@@ -30,20 +15,10 @@ class _LogInScreenState extends State<LogInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: _buildBackgroundGradient(),
+        decoration: Background.buildBackgroundGradient(),
         child: Center(
           child: _buildContext(context),
         ),
-      ),
-    );
-  }
-
-  BoxDecoration _buildBackgroundGradient() {
-    return BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color.fromRGBO(106, 17, 203, 1.0), Colors.black],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
       ),
     );
   }
@@ -59,11 +34,11 @@ class _LogInScreenState extends State<LogInScreen> {
       child: Stack(
         children: [
           Positioned(
-            top: 100,
+            top: 30,
             left: 20,
             right: 20,
             child: Text(
-              'Вход',
+              'Создание учетной записи OtoWave',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
@@ -78,7 +53,7 @@ class _LogInScreenState extends State<LogInScreen> {
               children: [
                 SizedBox(height: 10),
                 _buildForm(),
-                SizedBox(height: 45),
+                SizedBox(height: 50),
                 GestureDetector(
                   onTapDown: (_) {
                     setState(() {
@@ -131,15 +106,15 @@ class _LogInScreenState extends State<LogInScreen> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 30),
+              padding: const EdgeInsets.only(bottom: 20),
               child: TextButton(
                 onPressed: () {
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PasswordRecoveryScreen()),
+                  MaterialPageRoute(builder: (context) => AuthorizationScreen()),
                   );
                 },
                 child: Text(
-                  'Восстановление данных',
+                  'вернуться на главную',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 17,
@@ -149,27 +124,6 @@ class _LogInScreenState extends State<LogInScreen> {
               ),
             ),
           ),
-    Align(
-    alignment: Alignment.bottomCenter,
-    child: Padding(
-    padding: const EdgeInsets.only(bottom: 80),
-    child: TextButton(
-    onPressed: () {
-    Navigator.push(context,
-    MaterialPageRoute(builder: (context) => MainScreen()),
-    );
-    },
-    child: Text(
-    'на главную',
-    style: TextStyle(
-    color: Colors.white,
-    fontSize: 17,
-    fontFamily: 'Inter-Medium',
-                  )
-                )
-              )
-            )
-          )
         ],
       ),
     );
@@ -177,35 +131,40 @@ class _LogInScreenState extends State<LogInScreen> {
 
   Widget _buildForm() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _buildTextField(hintText: 'Логин'),
-        SizedBox(height: 20),
-        _buildTextField(hintText: 'Пароль', obscureText: true),
-
-
+        SizedBox(height: 15),
+        _buildTextField(hintText: 'Эл. почта', ),
+        SizedBox(height: 15),
+        _buildTextField(hintText: 'Пароль'),
+        SizedBox(height: 15),
+        _buildTextField(hintText: 'Повторить пароль'),
       ],
+    );
+  }
+
+  Widget _buildTextField({required String hintText, bool obscureText = false}) {
+    return Container(
+      width: 253,
+      height: 40,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: TextField(
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          hintText: hintText,
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        ),
+      ),
     );
   }
 }
 
 
 
-Widget _buildTextField({required String hintText, bool obscureText = false}) {
-  return Container(
-    width: 253,
-    height: 40,
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(15),
-    ),
-    child: TextField(
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        hintText: hintText,
-        border: InputBorder.none,
-        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      ),
-    ),
-  );
-}
+
+

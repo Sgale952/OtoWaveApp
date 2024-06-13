@@ -1,27 +1,15 @@
-import 'dart:async';
-import 'package:OtoWave/MainScreen.dart';
 import 'package:flutter/material.dart';
+import '/screens/templates/BackgroundGradient.dart';
+import 'AuthorizationScreen.dart';
+import 'PasswordСhangeScreen.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
+class PasswordRecoveryScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(),
-      home: RegistrationScreen(),
-    );
-  }
+  _PasswordRecoveryState createState() => _PasswordRecoveryState();
+
 }
 
-class RegistrationScreen extends StatefulWidget {
-  @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
-}
-
-class _RegistrationScreenState extends State<RegistrationScreen> {
+class _PasswordRecoveryState extends State<PasswordRecoveryScreen> {
   bool _isHovered = false;
   bool _isPressed = false;
 
@@ -29,20 +17,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: _buildBackgroundGradient(),
+        decoration: Background.buildBackgroundGradient(),
         child: Center(
           child: _buildContext(context),
         ),
-      ),
-    );
-  }
-
-  BoxDecoration _buildBackgroundGradient() {
-    return BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color.fromRGBO(106, 17, 203, 1.0), Colors.black],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
       ),
     );
   }
@@ -58,26 +36,27 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       child: Stack(
         children: [
           Positioned(
-            top: 30,
+            top: 75,
             left: 20,
             right: 20,
             child: Text(
-              'Создание учетной записи OtoWave',
-              textAlign: TextAlign.center,
+              'Восстановление данных',
+                  textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 22,
                 fontFamily: 'Inter-Medium',
               ),
             ),
+
           ),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 10),
+                SizedBox(height: 10,),
                 _buildForm(),
-                SizedBox(height: 50),
+                SizedBox(height: 45,),
                 GestureDetector(
                   onTapDown: (_) {
                     setState(() {
@@ -85,10 +64,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     });
                   },
                   onTapUp: (_) {
-                    /*Navigator.push(
+                    Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => LogInScreen()),
-                    ); */
+                      MaterialPageRoute(builder: (context) => PasswordChangeScreen()),
+                    );
                     setState(() {
                       _isPressed = false; // Устанавливаем состояние _isPressed в false при отпускании
                     });
@@ -114,7 +93,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                     child: Center(
                       child: Text(
-                        'Вход',
+                        'Отправить запрос',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 17,
@@ -130,15 +109,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.only(bottom: 50),
               child: TextButton(
                 onPressed: () {
                   Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MainScreen()),
+                    MaterialPageRoute(builder: (context) => AuthorizationScreen()),
                   );
                 },
                 child: Text(
-                  'вернуться на главную',
+                  'На главную',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 17,
@@ -149,46 +128,46 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
           ),
         ],
-      ),
+      )
     );
   }
 
   Widget _buildForm() {
     return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        _buildTextField(hintText: 'Логин'),
-        SizedBox(height: 15),
-        _buildTextField(hintText: 'Эл. почта', ),
-        SizedBox(height: 15),
-        _buildTextField(hintText: 'Пароль'),
-        SizedBox(height: 15),
-        _buildTextField(hintText: 'Повторить пароль'),
-      ],
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+    _buildTextField(hintText: 'Эл. почта'),
+    SizedBox(height: 20),
+    _buildTextField(hintText: 'Код', obscureText: true),
+      SizedBox(height: 35),
+    Text('После ввода полученного кода вы сможете\n'
+        'создать новый пароль для вашей учетной\nзаписи', textAlign: TextAlign.center,  style: TextStyle(
+    color: Colors.white38,
+    fontSize: 13,
+      fontFamily: 'Inter-Medium',
+
+            ),
+          )
+        ],
+      );
+    }
+
+  Widget _buildTextField({required String hintText, bool obscureText = false}) {
+    return Container(
+      width: 253,
+      height: 40,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: TextField(
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          hintText: hintText,
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        ),
+      ),
     );
   }
 }
-
-Widget _buildTextField({required String hintText, bool obscureText = false}) {
-  return Container(
-    width: 253,
-    height: 40,
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(15),
-    ),
-    child: TextField(
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        hintText: hintText,
-        border: InputBorder.none,
-        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      ),
-    ),
-  );
-}
-
-
-
-
-

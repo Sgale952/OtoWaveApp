@@ -1,30 +1,13 @@
-import 'dart:async';
-import 'package:OtoWave/MainScreen.dart';
 import 'package:flutter/material.dart';
+import '/screens/templates/BackgroundGradient.dart';
+import 'AuthorizationScreen.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-
-
+class PasswordChangeScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(),
-      home: PasswordCreationScreen(),
-    );
-  }
+  _PasswordChangeScreenState createState() => _PasswordChangeScreenState();
 }
 
-class PasswordCreationScreen extends StatefulWidget {
-  @override
-  _PasswordCreationScreenState createState() => _PasswordCreationScreenState();
-}
-
-class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
-
+class _PasswordChangeScreenState extends State<PasswordChangeScreen> {
   bool _isHovered = false;
   bool _isPressed = false;
 
@@ -32,20 +15,10 @@ class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: _buildBackgroundGradient(),
+        decoration: Background.buildBackgroundGradient(),
         child: Center(
           child: _buildContext(context),
         ),
-      ),
-    );
-  }
-
-  BoxDecoration _buildBackgroundGradient() {
-    return BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color.fromRGBO(106, 17, 203, 1.0), Colors.black],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
       ),
     );
   }
@@ -138,7 +111,7 @@ class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
                 child: TextButton(
                   onPressed: () {
                     Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MainScreen()),
+                      MaterialPageRoute(builder: (context) => AuthorizationScreen()),
                     );
                   },
                   child: Text(
@@ -156,6 +129,7 @@ class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
         )
     );
   }
+
   Widget _buildForm() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -167,25 +141,25 @@ class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
       ],
     );
   }
-}
 
-Widget _buildTextField({required String hintText, bool obscureText = false}) {
-  return Container(
-    width: 253,
-    height: 40,
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(15),
-    ),
-    child: TextField(
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        hintText: hintText,
-        border: InputBorder.none,
-        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+  Widget _buildTextField({required String hintText, bool obscureText = false}) {
+    return Container(
+      width: 253,
+      height: 40,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
       ),
-    ),
-  );
+      child: TextField(
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          hintText: hintText,
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        ),
+      ),
+    );
+  }
 }
 
 

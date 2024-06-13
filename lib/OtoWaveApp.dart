@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'LoadingScreen.dart';
-
+import 'package:OtoWave/screens/splash/LoadingScreen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(OtoWaveApp());
 }
 
-class MyApp extends StatelessWidget {
+class OtoWaveApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
