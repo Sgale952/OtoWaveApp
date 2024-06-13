@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '/screens/templates/BackgroundGradient.dart';
+import '/api/users/authorization/Login.dart';
+import '/screens/templates/authorization.dart';
 import 'AuthorizationScreen.dart';
 import 'PasswordRecoveryScreen.dart';
 
@@ -9,6 +10,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  late String _email;
+  late String _password;
   bool _isHovered = false;
   bool _isPressed = false;
 
@@ -16,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: Background.buildBackgroundGradient(),
+        decoration: buildBackgroundGradient(),
         child: Center(
           child: _buildContext(context),
         ),
@@ -62,10 +65,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                   },
                   onTapUp: (_) {
-                    /*Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LogInScreen()),
-                    ); */
                     setState(() {
                       _isPressed = false; // Устанавливаем состояние _isPressed в false при отпускании
                     });
@@ -74,6 +73,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     setState(() {
                       _isPressed = false; // Сбрасываем состояние _isPressed при отмене нажатия
                     });
+                  },
+                  onTap: () {
+                    _handleLogin();
                   },
                   child: AnimatedContainer(
                     duration: Duration(milliseconds: 200),
@@ -115,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   );
                 },
                 child: Text(
-                  'Восстановление данных',
+                  'восстановление данных',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 17,
@@ -155,31 +157,22 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildTextField(hintText: 'Логин'),
+        buildWhiteTextField(hintText: 'Логин'),
         SizedBox(height: 20),
-        _buildTextField(hintText: 'Пароль', obscureText: true),
-
-
+        buildWhiteTextField(hintText: 'Пароль', obscureText: true),
       ],
     );
   }
 
-  Widget _buildTextField({required String hintText, bool obscureText = false}) {
-    return Container(
-      width: 253,
-      height: 40,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: TextField(
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          hintText: hintText,
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        ),
-      ),
-    );
+  //TODO: присвоить значения TextField к переменной _email и _password
+  void _handleLogin() {
+    Login loginHandler = Login(_email, _password);
+    loginHandler.login().then((response) {
+      print(response);
+      // обработать ответ от сервера
+    }).catchError((error) {
+      print(error);
+      // обработать ошибку
+    });
   }
 }
