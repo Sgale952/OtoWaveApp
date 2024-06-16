@@ -1,3 +1,4 @@
+import 'package:OtoWave/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import '/api/users/authorization/Login.dart';
 import '/screens/templates/authorization.dart';
@@ -65,6 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                   },
                   onTapUp: (_) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
                     setState(() {
                       _isPressed = false; // Устанавливаем состояние _isPressed в false при отпускании
                     });

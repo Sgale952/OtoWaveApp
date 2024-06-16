@@ -27,8 +27,8 @@ class _AuthorizationScreenState extends State<AuthorizationScreen> {
   // Метод для построения центрального содержимого экрана
   Widget _buildContent(BuildContext context) {
     return Container(
-      width: 344, // Ширина контейнера
-      height: 581, // Высота контейнера
+      width: MediaQuery.of(context).size.width / 1.1,// Ширина контейнера
+      height: MediaQuery.of(context).size.height / 1.6, // Высота контейнера
       decoration: BoxDecoration(
         color: Color.fromRGBO(27, 24, 24, 1.0), // Цвет фона контейнера
         borderRadius: BorderRadius.circular(20), // Скругление углов контейнера
@@ -44,7 +44,7 @@ class _AuthorizationScreenState extends State<AuthorizationScreen> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white, // Цвет текста
-                fontSize: 30, // Размер текста
+                fontSize: 20, // Размер текста
                 fontFamily: 'Inter-Medium', // Шрифт текста
               ),
             ),
@@ -87,7 +87,7 @@ class _AuthorizationScreenState extends State<AuthorizationScreen> {
                   },
                   child: AnimatedContainer(
                     duration: Duration(milliseconds: 200),
-                    width: 263,
+                    width: MediaQuery.of(context).size.width / 1.5,
                     height: 55,
                     padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
@@ -129,7 +129,7 @@ class _AuthorizationScreenState extends State<AuthorizationScreen> {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: 263,
+        width: MediaQuery.of(context).size.width / 1.5,
         height: 51,
         decoration: BoxDecoration(
           color: color,
