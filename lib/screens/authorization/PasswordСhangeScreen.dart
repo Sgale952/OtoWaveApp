@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/screens/templates/BackgroundGradient.dart';
+import '/screens/templates/authorization.dart';
 import 'AuthorizationScreen.dart';
 
 class PasswordChangeScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class _PasswordChangeScreenState extends State<PasswordChangeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: Background.buildBackgroundGradient(),
+        decoration: buildBackgroundGradient(),
         child: Center(
           child: _buildContext(context),
         ),
@@ -134,30 +134,11 @@ class _PasswordChangeScreenState extends State<PasswordChangeScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildTextField(hintText: 'Пароль'),
+        buildWhiteTextField(hintText: 'Пароль'),
         SizedBox(height: 20),
-        _buildTextField(hintText: 'Повторить пароль', obscureText: true),
+        buildWhiteTextField(hintText: 'Повторить пароль', obscureText: true),
         SizedBox(height: 35),
       ],
-    );
-  }
-
-  Widget _buildTextField({required String hintText, bool obscureText = false}) {
-    return Container(
-      width: 253,
-      height: 40,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: TextField(
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          hintText: hintText,
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        ),
-      ),
     );
   }
 }

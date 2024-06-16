@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/screens/templates/BackgroundGradient.dart';
+import '/screens/templates/authorization.dart';
 import 'LoginScreen.dart';
 import 'RegistrationScreen.dart';
 
@@ -16,7 +16,7 @@ class _AuthorizationScreenState extends State<AuthorizationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: Background.buildBackgroundGradient(), // Задний фон с градиентом
+        decoration: buildBackgroundGradient(), // Задний фон с градиентом
         child: Center(
           child: _buildContent(context), // Центральное содержимое экрана
         ),

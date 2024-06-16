@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/screens/templates/BackgroundGradient.dart';
+import '/screens/templates/authorization.dart';
 import 'AuthorizationScreen.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: Background.buildBackgroundGradient(),
+        decoration: buildBackgroundGradient(),
         child: Center(
           child: _buildContext(context),
         ),
@@ -61,10 +61,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     });
                   },
                   onTapUp: (_) {
-                    /*Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LogInScreen()),
-                    ); */
                     setState(() {
                       _isPressed = false; // Устанавливаем состояние _isPressed в false при отпускании
                     });
@@ -114,7 +110,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   );
                 },
                 child: Text(
-                  'вернуться на главную',
+                  'на главную',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 17,
@@ -133,33 +129,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildTextField(hintText: 'Логин'),
+        buildWhiteTextField(hintText: 'Логин'),
         SizedBox(height: 15),
-        _buildTextField(hintText: 'Эл. почта', ),
+        buildWhiteTextField(hintText: 'Эл. почта', ),
         SizedBox(height: 15),
-        _buildTextField(hintText: 'Пароль'),
+        buildWhiteTextField(hintText: 'Пароль'),
         SizedBox(height: 15),
-        _buildTextField(hintText: 'Повторить пароль'),
+        buildWhiteTextField(hintText: 'Повторить пароль'),
       ],
-    );
-  }
-
-  Widget _buildTextField({required String hintText, bool obscureText = false}) {
-    return Container(
-      width: 253,
-      height: 40,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: TextField(
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          hintText: hintText,
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        ),
-      ),
     );
   }
 }
