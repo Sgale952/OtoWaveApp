@@ -28,3 +28,23 @@ Widget buildWhiteTextField({required String hintText, bool obscureText = false})
     ),
   );
 }
+
+Widget buildControllableWhiteTextField({required String hintText, bool obscureText = false, required TextEditingController controller}) {
+  return Container(
+    width: 253,
+    height: 40,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(15),
+    ),
+    child: TextField(
+      controller: controller,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        hintText: hintText,
+        border: InputBorder.none,
+        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      ),
+    ),
+  );
+}

@@ -12,7 +12,7 @@ class Login {
   Future<Map<String, dynamic>> login() async {
     try {
       _checkEmail();
-      return await _sendPostRequest();
+      return await _sendRequest();
     }
     on FormatException catch (e) {
       return {'error': e.message};
@@ -31,7 +31,7 @@ class Login {
     }
   }
 
-  Future<Map<String, dynamic>> _sendPostRequest() async {
+  Future<Map<String, dynamic>> _sendRequest() async {
     var requestBody = {
       'email': _email,
       'password': _password,
@@ -58,6 +58,6 @@ class Login {
   }
 
   Map<String, dynamic> _getResponseData(Response response) {
-    return response.body.isEmpty? {'error': 'Incorrect login'} : {'userID': response.body};
+    return response.body.isEmpty? {'error': 'Incorrect data'} : {'userID': response.body};
   }
 }

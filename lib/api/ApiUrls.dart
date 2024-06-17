@@ -23,10 +23,8 @@ enum ApiUrls {
   static String getUrl(ApiUrls url, {ItemTypes itemType = ItemTypes.DEFAULT, int id = 0}) {
     if (itemType != ItemTypes.DEFAULT && id != 0)
       return '$baseUrl/images/$itemType/$id/${_urls[url]}';
-
     else if (id != 0)
       return '$baseUrl/$id/${_urls[url]}';
-
     else
       return '$baseUrl${_urls[url]}';
   }
