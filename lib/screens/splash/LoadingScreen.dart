@@ -16,6 +16,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Timer? _timer;
 
   @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -36,12 +42,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
     super.initState();
     _loadGradients();
     _startTimer();
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
   }
 
   Future<void> _loadGradients() async {

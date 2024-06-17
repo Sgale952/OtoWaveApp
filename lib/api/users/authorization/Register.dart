@@ -1,17 +1,19 @@
 import 'dart:io';
-import 'package:http/http.dart';
-import 'package:OtoWave/api/ApiUrls.dart';
 
+import 'package:http/http.dart';
+
+import '../../ApiUrls.dart';
 import 'Common.dart';
 
-class Login {
-  static final _url = ApiUrls.getUrl(ApiUrls.LOGIN);
+class Register {
+  static final _url = ApiUrls.getUrl(ApiUrls.REGISTER);
+  String _nickname;
   String _email;
   String _password;
 
-  Login(this._email, this._password);
+  Register(this._nickname, this._email, this._password);
 
-  Future<Map<String, dynamic>> login() async {
+  Future<Map<String, dynamic>> register() async {
     try {
       checkEmail(_email);
       return await _sendRequest();
@@ -29,6 +31,7 @@ class Login {
 
   Future<Map<String, dynamic>> _sendRequest() async {
     var requestBody = {
+      'nickname': _nickname,
       'email': _email,
       'password': _password,
     };
@@ -37,7 +40,7 @@ class Login {
 
   Future<Map<String, dynamic>> _buildRequest(Map<String, String> requestBody) async {
     var urlWithParams = Uri.parse('$_url?${encodeQueryParameters(requestBody)}');
-    var response = await get(urlWithParams, headers: {
+    var response = await post(urlWithParams, headers: {
       'Content-Type': 'application/json',
     });
     return handleResponse(response);

@@ -11,10 +11,18 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late String _email;
-  late String _password;
+  static int _userID = 0;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _isHovered = false;
   bool _isPressed = false;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,25 +70,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 GestureDetector(
                   onTapDown: (_) {
                     setState(() {
-                      _isPressed = true; // Устанавливаем состояние _isPressed в true при нажатии
+                      _isPressed = true;
                     });
                   },
                   onTapUp: (_) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
-                    );
                     setState(() {
-                      _isPressed = false; // Устанавливаем состояние _isPressed в false при отпускании
+                      _isPressed = false;
                     });
+                    _sendLogin();
                   },
                   onTapCancel: () {
                     setState(() {
-                      _isPressed = false; // Сбрасываем состояние _isPressed при отмене нажатия
+                      _isPressed = false;
                     });
-                  },
-                  onTap: () {
-                    _handleLogin();
                   },
                   child: AnimatedContainer(
                     duration: Duration(milliseconds: 200),
@@ -89,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: _isPressed
-                          ? Colors.blue // Цвет кнопки при нажатии
+                          ? Colors.blue
                           : (_isHovered
                           ? Colors.blue.withOpacity(0.5)
                           : Colors.transparent),
@@ -117,8 +119,10 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.only(bottom: 30),
               child: TextButton(
                 onPressed: () {
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PasswordRecoveryScreen()),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PasswordRecoveryScreen()),
                   );
                 },
                 child: Text(
@@ -132,27 +136,29 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-    Align(
-    alignment: Alignment.bottomCenter,
-    child: Padding(
-    padding: const EdgeInsets.only(bottom: 80),
-    child: TextButton(
-    onPressed: () {
-    Navigator.push(context,
-    MaterialPageRoute(builder: (context) => AuthorizationScreen()),
-    );
-    },
-    child: Text(
-    'на главную',
-    style: TextStyle(
-    color: Colors.white,
-    fontSize: 17,
-    fontFamily: 'Inter-Medium',
-                  )
-                )
-              )
-            )
-          )
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 80),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AuthorizationScreen()),
+                  );
+                },
+                child: Text(
+                  'на главную',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontFamily: 'Inter-Medium',
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -162,22 +168,50 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        buildWhiteTextField(hintText: 'Логин'),
+        buildControllableWhiteTextField(
+          hintText: 'Логин',
+          controller: _emailController,
+        ),
         SizedBox(height: 20),
-        buildWhiteTextField(hintText: 'Пароль', obscureText: true),
+        buildControllableWhiteTextField(
+          hintText: 'Пароль',
+          obscureText: true,
+          controller: _passwordController,
+        ),
       ],
     );
   }
 
-  //TODO: присвоить значения TextField к переменной _email и _password
-  void _handleLogin() {
+  Future<void> _sendLogin() async {
+    var _email = _emailController.text;
+    var _password = _passwordController.text;
+
     Login loginHandler = Login(_email, _password);
-    loginHandler.login().then((response) {
-      print(response);
-      // обработать ответ от сервера
-    }).catchError((error) {
-      print(error);
-      // обработать ошибку
-    });
+    Map<String, dynamic> response = await loginHandler.login();
+    checkLoginResponse(response);
+  }
+
+  void checkLoginResponse(Map<String, dynamic> response) {
+    if (response.containsKey('error')) {
+      _showErrorMessage(response['error']);
+    }
+    else {
+      _userID = int.parse(response['userID']);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomeScreen()),
+      );
+    }
+  }
+
+  void _showErrorMessage(String error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Error: $error')),
+    );
+  }
+
+  static int getUserID() {
+    return _userID;
   }
 }
