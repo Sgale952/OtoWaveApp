@@ -10,6 +10,7 @@ BoxDecoration buildBackgroundGradient() {
   );
 }
 
+//temp realization
 Widget buildWhiteTextField({required String hintText, bool obscureText = false}) {
   return Container(
     width: 253,

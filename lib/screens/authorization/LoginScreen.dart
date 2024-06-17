@@ -193,19 +193,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void checkLoginResponse(Map<String, dynamic> response) {
     if (response.containsKey('error')) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: ${response['error']}')),
-      );
+      _showErrorMessage(response['error']);
     }
     else {
-      _userID = response['userID'];
-      print(_userID);
+      _userID = int.parse(response['userID']);
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => HomeScreen()),
       );
     }
+  }
+
+  void _showErrorMessage(String error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Error: $error')),
+    );
   }
 
   static int getUserID() {

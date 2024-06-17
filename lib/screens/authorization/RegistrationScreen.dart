@@ -1,4 +1,6 @@
+import 'package:OtoWave/api/users/authorization/Register.dart';
 import 'package:flutter/material.dart';
+import '../../HomeScreen.dart';
 import '/screens/templates/authorization.dart';
 import 'AuthorizationScreen.dart';
 
@@ -8,6 +10,11 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  static int _userID = 0;
+  final TextEditingController _nicknameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _checkPasswordController = TextEditingController();
   bool _isHovered = false;
   bool _isPressed = false;
 
@@ -57,17 +64,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 GestureDetector(
                   onTapDown: (_) {
                     setState(() {
-                      _isPressed = true; // Устанавливаем состояние _isPressed в true при нажатии
+                      _isPressed = true;
                     });
                   },
                   onTapUp: (_) {
                     setState(() {
-                      _isPressed = false; // Устанавливаем состояние _isPressed в false при отпускании
+                      _isPressed = false;
                     });
+                    _sendRegister();
                   },
                   onTapCancel: () {
                     setState(() {
-                      _isPressed = false; // Сбрасываем состояние _isPressed при отмене нажатия
+                      _isPressed = false;
                     });
                   },
                   child: AnimatedContainer(
@@ -86,7 +94,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                     child: Center(
                       child: Text(
-                        'Вход',
+                        'Создать аккаунт',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 17,
@@ -129,15 +137,54 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        buildWhiteTextField(hintText: 'Логин'),
+        buildControllableWhiteTextField(hintText: 'Имя', controller: _nicknameController),
         SizedBox(height: 15),
-        buildWhiteTextField(hintText: 'Эл. почта', ),
+        buildControllableWhiteTextField(hintText: 'Эл. почта', controller: _emailController),
         SizedBox(height: 15),
-        buildWhiteTextField(hintText: 'Пароль'),
+        buildControllableWhiteTextField(hintText: 'Пароль', controller: _passwordController),
         SizedBox(height: 15),
-        buildWhiteTextField(hintText: 'Повторить пароль'),
+        buildControllableWhiteTextField(hintText: 'Повторить пароль', controller: _checkPasswordController),
       ],
     );
+  }
+
+  Future<void> _sendRegister() async {
+    var _nickname = _nicknameController.text;
+    var _email = _emailController.text;
+    var _password = _passwordController.text;
+    var _checkPassword = _checkPasswordController.text;
+
+    Register registerHandler = Register(_nickname, _email, _password);
+    Map<String, dynamic> response = await registerHandler.register();
+
+    if (_password == _checkPassword)
+      checkRegisterResponse(response);
+    else
+      _showErrorMessage('passwords are different');
+  }
+
+  void checkRegisterResponse(Map<String, dynamic> response) {
+    if (response.containsKey('error')) {
+      _showErrorMessage(response['error']);
+    }
+    else {
+      _userID = int.parse(response['userID']);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomeScreen()),
+      );
+    }
+  }
+
+  void _showErrorMessage(String error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Error: $error')),
+    );
+  }
+
+  static int getUserID() {
+    return _userID;
   }
 }
 
